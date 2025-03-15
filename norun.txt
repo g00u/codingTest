@@ -1,0 +1,93 @@
+코데/해시/완주하지 못한 선수
+
+단 한명의 선수를 제외하고 모든 선수 마라톤 완주
+- 배열 participant (마라톤 참여한 선수들 이름)
+- 배열 completion (완주한 선수들의 이름)
+return 완주하지 못한 선수의 이름
+
+제한사항 
+- 1<=선수<=100,000
+- len(completion) = len(participant)-1
+- 1<= 참가자 이름 <= 20 ,loweralpha, 동명이인 가능성
+
+1. 배열 비교 필요 
+ - participant 배열
+  -> <이름, 인원수> 해시맵 이용
+  -> 이름 저장 +1
+ - completion 배열
+  -> 완주자 목록을 해시맵에서 제거 -1
+- 개수가 0이 되면 완주, 해시맵에서 값이 1 == 완주 못함
+
+2. Java코드 흐름
+ HashMap<String, Integer> map = new HashMap<>(); //해시맵 생성
+
+ for(String p : participant){ //참가자 리스트 순회 저장
+    //이름별 개수세기
+    //처음 등장하는 이름? 0에서1
+    //이미 등장한 이름? 기존 수+1
+    map.put(p, map.getOrDefault(p, 0)+1); //p가 해시맵에 존재하면 해당 값 Integer가져옴, 존재하지 않으면 0, +1: 중복값 있으면 증가, 없으면 0에서 1증가
+ }
+완주한 선수 배열 순회 , 해시맵 비교 개수 감소 시키고
+for(String c : completion){
+    map.put(c, map.get(c)-1);
+}
+해시맵 순회하면서 if 1인 값 return key값
+
+
+
+==========================================
+*HashMap개념
+- Key-Value 쌍 저장하는 구조, 데이터를 빠르게 저장하고 검색
+- Key: 데이터를 찾을 때 사용하는 값 (중복 불가)
+- Value: Key에 매핑된 데이터 (중복 가능)
+- 시간 복잡도: 평균적으로 O(1); 탐색,삽입,삭제
+
+*HashMap 선언 및 생성
+ import java.util.HashMap;
+ HashMap<String, Integer> map = new HashMap<>();
+ - String: 키의 타입 (이름 등), Integer: 값의 타입(점수, 개수 등)
+
+*HashMap 주요 메서드
+put(key,value) :key에 value저장
+get(key) :key에 해당하는 value 반환(없으면 null)
+remove(key) :key제거
+containsKey(key) :true/false
+containsValue(value) :true/false
+size() :저장된 데이터 개수 반환
+isEmpty() :true/false
+clear() :모든 데이터 삭제
+V getOrDefault(Object key, V defaultValue)
+:특정 키가 존재하면 해당 키의 값을 반환, 존재하지 않으면 defaultValue 반환
+
+
+        HashMap<String, Integer> map = new HashMap<>();
+        //  모든 키 조회 (keySet)
+        for (String key : map.keySet()) {
+            System.out.println(key + " -> " + map.get(key));
+        }
+
+        //  모든 값 조회 (values)
+        for (int value : map.values()) {
+            System.out.println(value);
+        }
+
+*HashMap의 동작 원리
+ - 내부 구조 (해시 함수 사용)
+    - HashMap은 배열 + 연결 리스트
+    - put() 할 때, key에 대해 hashCode()를 계산하여 특정 인덱스에 저장
+    - 같은 hashCode()값이 나오면 체이닝 방식으로 연결 리스트로 저장 
+        > 연결 개수 많아지면 연결 리스트 대신 트리로 변경하여 성능 개선
+    - 최악의 경우 O(N), 평균적으로 O(1)
+
+자료구조	 동작 방식	                      정렬 여부	        동기화
+HashMap	    Key의 hashCode()로 빠르게 탐색	      X	             X (멀티스레드에서 비추천)
+HashTable	HashMap과 유사하지만 동기화 지원	   X	          O (멀티스레드 사용 가능)
+TreeMap	    이진 탐색 트리 (Red-Black Tree)	     O(Key 정렬)	 X
+
+ *HashMap 사용 시 주의할 점
+1. Key는 hashCode()와 equals()를 재정의해야 함.
+    - 객체를 Key로 사용할 경우 hashCode()와 equals()를 오버라이딩해야 정상 작동.
+2. 동기화 문제 (멀티스레드 환경에서는 ConcurrentHashMap 사용).
+    - HashMap은 스레드 안전하지 않음.
+3. 순서 보장이 필요하면 LinkedHashMap 사용.
+    - HashMap은 입력 순서를 보장하지 않음.
