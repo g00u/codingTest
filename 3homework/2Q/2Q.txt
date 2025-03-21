@@ -50,8 +50,19 @@ for (i=index; i<order.length; i++){
 글자 배열에서 정해진 수만큼 뽑아야 함
 지금까지 만든 글자 저장 
 
+[gpt]
 //조합 어떻게 구조 잡아야할지 모르겠음 -> gpt 도움
 genrateCombination()
 
 if (max < 2) continue; 빼먹음
 -->2번 이상 주문된 조합만을 고려해야 하는 문제 조건을 위반
+등장 횟수가 1인 조합도 고려하게 됨 
+
+//for문안에 넣기 
+for (String key : map.keySet()) {
+    if (map.get(key) == max) {
+        answerList.add(key); // ❌ 1번만 나온 조합도 들어갈 수 있음!
+    }
+}
+//안 넣으면 -> 주문한 사람이 한 명 뿐인 조합도 포함될 수 있음
+1번씩만 나온 조합 포함 시키면 안됨

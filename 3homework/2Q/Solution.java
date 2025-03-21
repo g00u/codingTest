@@ -26,6 +26,12 @@ class Solution {
             if (max < 2) {
                 continue;
             }
+            // 가장 많이 주문된 조합들만 정답 리스트에 추가
+            for (String key : map.keySet()) {
+                if (map.get(key) == max) {
+                    answerList.add(key);
+                }
+            }
         }
         // 정렬 후 배열로 변환해서 반환
         Collections.sort(answerList);// new(새롭게 알게 된)! 리스트 정렬 함수 Collections.sort(list)오름차순 정렬(A->Z, 1->9),
@@ -33,10 +39,15 @@ class Solution {
         return answerList.toArray(new String[0]); // 리스트를 배열로 변환하는 방법 Stiring[]타입으로 리턴
     }
 
+    // 조합 생성 함수 (재귀 / 백트래킹)
+    // order: 정렬된 알파벳 배열
+    // current: 지금까지 만든 조합
+    // index: 다음으로 뽑을 글자의 위치
+    // targetLength: 만들고자 하는 조합 길이
+    // map: 조합 → 등장 횟수 저장
     // 조합 생성 함수; 주어진 알파벳 배열에서 c개의 조합을 생성하는 함수; 재귀함수
     public void genrateCombination(char[] orderArr, int start, int c, String comb, Map<String, Integer> map) {
-        // 정렬된 주문 문자열, 지금까지 만든 조합, 다음에 뽑을 글자 시작위치,
-        // 만들고 싶은 조합의 길이, 조합(등장횟수 저장 맵맵)
+
         if (comb.length() == c) { // 목표로 한 길이 도달달
             map.put(comb, map.getOrDefault(comb, 0) + 1); // 지금 만든 조합 맵 저장
             // 이미 있었으면 기존 횟수를 가져옴, 거기에 +1 해서 횟수 누적적
