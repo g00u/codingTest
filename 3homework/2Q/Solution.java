@@ -23,6 +23,9 @@ class Solution {
                     max = count;
                 }
             }
+            if (max < 2) {
+                continue;
+            }
         }
         // 정렬 후 배열로 변환해서 반환
         Collections.sort(answerList);// new(새롭게 알게 된)! 리스트 정렬 함수 Collections.sort(list)오름차순 정렬(A->Z, 1->9),

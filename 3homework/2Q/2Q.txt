@@ -52,3 +52,6 @@ for (i=index; i<order.length; i++){
 
 //조합 어떻게 구조 잡아야할지 모르겠음 -> gpt 도움
 genrateCombination()
+
+if (max < 2) continue; 빼먹음
+-->2번 이상 주문된 조합만을 고려해야 하는 문제 조건을 위반
