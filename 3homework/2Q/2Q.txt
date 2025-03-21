@@ -49,3 +49,6 @@ for (i=index; i<order.length; i++){
 ==>중복 없이 정해진 길이만큼의 조합
 글자 배열에서 정해진 수만큼 뽑아야 함
 지금까지 만든 글자 저장 
+
+//조합 어떻게 구조 잡아야할지 모르겠음 -> gpt 도움
+genrateCombination()
