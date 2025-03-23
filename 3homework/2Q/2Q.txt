@@ -1,8 +1,15 @@
 [1Q. K번째 수; 새롭게 알게 된 점 & 주의할 점]
 - 번째, 인덱스 번호 주의
 - 2차원배열 주의[c][]
-- Arrays.copyOfRange
+- Arrays.copyOfRange: 배열 일부를 쉽게 복사할 수 있는 함수
 
+
+[2Q. kakao메뉴리뉴얼; 새롬게 알게 된 점 & 주의할 점]
+- 조합 생성 시 중복 제거를 위해 정렬 필요
+- 조합 저장에는 Map<String, Integer>활용
+- 정렬된 리스트는 Collections.sort(list)로 오름차순 가능
+
+--------------------------------------------------------------
 [2Q. kakao 메뉴리뉴얼]
 1. 문제 분석
 코스 요리 메뉴 최소 2가지 이상의 단품메뉴 조합
@@ -15,6 +22,7 @@ course[1~10] ASC 중복x
 return 문자열 형식 배열, 사전 순, 오름차순 정렬
 많이 주문 메뉴 구성 여러개->모두 배열 담아 return
 orders course 매개변수 return 하는 배열의 길이가 1 이상이 되도록
+-------------
 
 
 - 주문 다 확인 [2,3,4] 각 조합 길이 만큼, 
@@ -49,10 +57,27 @@ for (i=index; i<order.length; i++){
 ==>중복 없이 정해진 길이만큼의 조합
 글자 배열에서 정해진 수만큼 뽑아야 함
 지금까지 만든 글자 저장 
+--------------------------------------------------
+- 입력 데이터 확인 
+char[] orderArr = order.toCharArray();
+Arrays.sort(orderArr);
+System.out.println(Arrays.toString(orderArr));
 
+
+--------------------------------------------------
 [gpt]
 //조합 어떻게 구조 잡아야할지 모르겠음 -> gpt 도움
-genrateCombination()
+- 조합 생성 함수 구현
+public void genrateCombination(char[] orderArr, int start, int c, String comb, Map<String, Integer> map) {
+    if (comb.length() == c) {
+        map.put(comb, map.getOrDefault(comb, 0) + 1);
+        return;
+    }
+    for (int i = start; i < orderArr.length; i++) {
+        genrateCombination(orderArr, i + 1, c, comb + orderArr[i], map);
+    }
+}
+--------------------------------------------------
 
 if (max < 2) continue; 빼먹음
 -->2번 이상 주문된 조합만을 고려해야 하는 문제 조건을 위반
@@ -61,7 +86,7 @@ if (max < 2) continue; 빼먹음
 //for문안에 넣기 
 for (String key : map.keySet()) {
     if (map.get(key) == max) {
-        answerList.add(key); // ❌ 1번만 나온 조합도 들어갈 수 있음!
+        answerList.add(key); // 1번만 나온 조합도 들어갈 수 있음
     }
 }
 //안 넣으면 -> 주문한 사람이 한 명 뿐인 조합도 포함될 수 있음
