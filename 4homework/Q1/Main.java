@@ -14,9 +14,9 @@ public class Main {
                 }
             }
 
-            int[] answer = new int[stack.size()];
-            for (int i = 0; i < answer.length; i++) {
-                answer[i] = stack.pop();
+            int[] answer = new int[stack.size()]; // 스택의 크기만큼 배열 생성
+            for (int i = 0; i < answer.length; i++) { // 스택의 크기만큼 반복
+                answer[i] = stack.get(i); // 스택은 인덱스로 접근이 불가능하므로 get()을 사용
             }
 
             return answer;
