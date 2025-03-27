@@ -7,8 +7,9 @@ public class Main {
 
             for (int i = 0; i < arr.length; i++) {
                 int num = arr[i];
-
-                if (stack.peek() != num) {
+                // 스택이 비어있거나, 스택의 top이 현재 숫자와 다르면 스택에 추가
+                // isEmpty()로 먼저 체크해야 NullPointerException이 발생하지 않음
+                if (stack.isEmpty() || stack.peek() != num) {
                     stack.push(num);
                 }
             }
