@@ -1,35 +1,50 @@
-//문자열 압축
 class Solution {
     public int solution(String s) {
-        // 결과 문자열 누적
-        StringBuilder result = new StringBuilder();
-        // 첫 글자를 기준으로 설정(비교)
-        char prev = s.charAt(0); // 현재까지 확인한 문자
-        int count = 1; // 연속된 문자 개수
+        // 문자열이 압축이 하나도 안 될 때는 원래 길이가 최소
+        int minLength = s.length();
 
-        // 두번째 부터 반복
-        for (int i = 1; i < s.length(); i++) {
-            char curr = s.charAt(i); // 현재 문자
-            if (curr == prev) {
-                count++; // 연속된 문자 개수 증가
-            } else {
-                // 이전 문자와 다르면 결과 문자열에 추가
-                if (count > 1) {
-                    // 반복된 문자가 2번 이상이면 숫자 + 문자
-                    result.append(count); // 연속된 문자 개수 추가
+        // 압축 단위를 1부터 문자열 길이의 절반까지 시도
+        for (int step = 1; step <= s.length() / 2; step++) {
+            StringBuilder compressed = new StringBuilder(); // 압축 결과 저장
+            String prev = s.substring(0, step); // 기준 문자열 (첫 블록)
+            int count = 1; // 반복 횟수
+
+            // step 단위로 문자열 자르며 반복
+            for (int i = step; i <= s.length() - step; i += step) {
+                // 현재 블록 추출
+                String curr = s.substring(i, i + step);
+
+                // 이전 블록과 같으면 count 증가
+                if (curr.equals(prev)) {
+                    count++;
+                } else {
+                    // 같지 않으면 압축 문자열에 결과 추가
+                    if (count > 1) {
+                        compressed.append(count); // 반복된 횟수
+                    }
+                    compressed.append(prev); // 블록 문자열
+                    prev = curr; // 기준 블록 변경
+                    count = 1; // 반복 횟수 초기화
                 }
-                result.append(prev); // 반복되지 않았거나 1번인 문자 추가
-                prev = curr; // 현재 문자를 이전 문자로 설정
-                count = 1; // 연속된 문자 개수 초기화
             }
 
-        }
-        // 마지막 문자 처리(for 종료 후 남은 문자)
-        if (count > 1) {
-            result.append(count); // 연속된 문자 개수 추가
-        }
-        result.append(prev); // 마지막 문자 추가
-        return result.length(); // 결과 문자열 길이 반환
+            // 마지막 남은 블록 처리
+            if (count > 1) {
+                compressed.append(count);
+            }
+            compressed.append(prev);
 
+            // 문자열이 step 단위로 나누어 떨어지지 않는 경우,
+            // 남은 문자열은 그대로 붙인다
+            if (s.length() % step != 0) {
+                compressed.append(s.substring(s.length() - s.length() % step));
+            }
+
+            // 최소 길이 갱신
+            minLength = Math.min(minLength, compressed.length());
+        }
+
+        // 압축 후 최소 문자열 길이 반환
+        return minLength;
     }
 }
