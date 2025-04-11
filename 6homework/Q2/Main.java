@@ -1,27 +1,29 @@
+// GPT 도움 받아서 PriorityQueue 사용 → 자동으로 최소 힙 구조 유지됨
 
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt(); // 명령의 수
+        int N = sc.nextInt();
 
-        List<Integer> list = new ArrayList<>();
+        // PriorityQueue: 기본이 '최소 힙' 구조
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
         for (int i = 0; i < N; i++) {
             int x = sc.nextInt();
 
             if (x == 0) {
-                if (list.isEmpty()) {
+                if (pq.isEmpty()) {
                     System.out.println(0);
                 } else {
-                    Collections.sort(list); // 정렬
-                    System.out.println(list.get(0)); // 가장 작은 수
-                    list.remove(0); // 제거
+                    System.out.println(pq.poll()); // 가장 작은 값 출력 + 제거
                 }
             } else {
-                list.add(x); // 숫자 저장
+                pq.add(x); // 힙에 값 추가
             }
         }
+
+        sc.close();
     }
 }
