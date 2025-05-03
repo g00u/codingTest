@@ -1,7 +1,6 @@
 
 import java.util.Scanner;
 
-// 클래스 이름은 반드시 Main으로 작성 (백준 제출 시 규칙)
 public class Main {
 
     // 전역 변수 선언
@@ -35,16 +34,6 @@ public class Main {
         System.out.println(max);
     }
 
-    /**
-     * 재귀 함수 설명:
-     * 
-     * @param idx   : 현재 선택할 카드의 시작 인덱스 (중복 조합 방지를 위해 이전에 선택한 카드보다 뒤쪽 인덱스만 고려)
-     * @param count : 현재까지 선택한 카드의 개수 (3장이 되면 종료 조건)
-     * @param sum   : 지금까지 선택한 카드들의 합 (조건 검사에 사용)
-     *
-     *              이 함수는 idx부터 시작하여, 중복 없이 3장 조합을 생성하고,
-     *              각 조합의 합(sum)이 목표 M 이하이면 최대합(max)을 갱신한다.
-     */
     static void recur(int idx, int count, int sum) {
         // 종료 조건: 카드 3장을 모두 선택했을 경우
         if (count == 3) {
