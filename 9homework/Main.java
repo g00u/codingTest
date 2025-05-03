@@ -23,6 +23,8 @@ public class Main {
             }
             return;
         }
+        if (i >= N)
+            return;
         // 선택하지 않는 경우 (X)
         recur(i + 1, count, sum);
 
