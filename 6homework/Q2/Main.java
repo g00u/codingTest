@@ -1,4 +1,4 @@
-// GPT 도움 받아서 PriorityQueue 사용 → 자동으로 최소 힙 구조 유지됨
+package Q2;
 
 import java.util.*;
 
