@@ -29,5 +29,23 @@ public class Test1 {
                 { 1, 1, 1 }
         };
         System.out.println("Test 4 결과: " + sol.solution(map4));
+        // Test 5
+        int[][] map5 = {
+                { 1, 1, 1 },
+                { 0, 0, 1 },
+                { 1, 1, 1 }
+        };
+        System.out.println("Test 5결과: " + sol.solution(map5));
+
+        int[][] map6 = {
+                { 1, 1, 1, 1 },
+                { 1, 0, 0, 1 },
+                { 1, 1, 1, 1 },
+                { 1, 0, 0, 1 },
+                { 1, 1, 1, 1 }
+        };
+        System.out.println("Test 6  결과: " + sol.solution(map6));
+
     }
+
 }
